@@ -7,15 +7,20 @@
 
 
 #include <functional>
+#include <utility>
+#include <vector>
+#include <memory>
+#include "PatternMatcher.h"
 
 class FiniteAutomatonMatcher {
 public:
-    explicit FiniteAutomatonMatcher(const std::function<int(int, char)>& transitionFunction) {
-        this->transitionFn = transitionFunction;
+    explicit FiniteAutomatonMatcher(std::shared_ptr<PatternMatcher> matcher) {
+        this->matcher = std::move(matcher);
     }
-    int matchPatter(const std::string& text, const std::string& pattern);
+
+    std::shared_ptr<std::vector<int>> matchPattern(const std::string &text);
 private:
-    std::function<int(int, char)> transitionFn;
+    std::shared_ptr<PatternMatcher> matcher;
 };
 
 

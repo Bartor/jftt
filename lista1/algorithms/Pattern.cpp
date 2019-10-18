@@ -2,14 +2,14 @@
 // Created by brajczyk on 18.10.2019.
 //
 
-#include <bits/unique_ptr.h>
-#include <bits/shared_ptr.h>
+#include <memory>
+#include <iostream>
 #include "Pattern.h"
 #include "FunctionMap.h"
+#include "PatternMatcher.h"
 
-std::function<int(int, char)> &Pattern::match(const std::string &pattern) {
+std::shared_ptr<PatternMatcher> Pattern::match(const std::string &pattern) {
     auto map = std::make_shared<FunctionMap>();
-    this->functions.push_back(map);
     for (auto i = 0; i < pattern.length(); i++) {
         for (auto currentSymbol : this->alphabet) {
             int k = pattern.length() + 1 > i + 2 ? i + 2 : pattern.length() + 1;
@@ -19,7 +19,8 @@ std::function<int(int, char)> &Pattern::match(const std::string &pattern) {
             map->set(i, currentSymbol, k);
         }
     }
-    //TODO return a function int, char -> int = map.get
+
+    return std::make_shared<PatternMatcher>(map, pattern.length());
 }
 
 inline bool Pattern::ends_with(const std::string &text, const std::string &suffix) {
