@@ -10,6 +10,10 @@
 #include <utility>
 #include <vector>
 #include <memory>
+#include <codecvt>
+#include <locale>
+#include <utility>
+
 #include "PatternMatcher.h"
 
 class FiniteAutomatonMatcher {
@@ -18,7 +22,7 @@ public:
         this->matcher = std::move(matcher);
     }
 
-    std::shared_ptr<std::vector<int>> matchPattern(const std::string &text);
+    std::shared_ptr<std::vector<int>> matchPattern(const std::wstring &text);
 private:
     std::shared_ptr<PatternMatcher> matcher;
 };

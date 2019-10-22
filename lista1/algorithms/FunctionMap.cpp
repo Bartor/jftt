@@ -6,15 +6,15 @@
 #include "FunctionMap.h"
 
 FunctionMap::FunctionMap() {
-    this->mapHandle = std::make_unique<std::map<int, std::shared_ptr<std::map<char, int>>>>();
+    this->mapHandle = std::make_unique<std::map<int, std::shared_ptr<std::map<wchar_t, int>>>>();
 }
 
-void FunctionMap::set(int state, char input, int output) {
-    std::shared_ptr<std::map<char, int>> elementMap;
+void FunctionMap::set(int state, wchar_t input, int output) {
+    std::shared_ptr<std::map<wchar_t , int>> elementMap;
     try {
         elementMap = this->mapHandle->at(state);
     } catch (std::out_of_range &e) {
-        elementMap = std::make_shared<std::map<char, int>>();
+        elementMap = std::make_shared<std::map<wchar_t , int>>();
         this->mapHandle->insert({state, elementMap});
     }
     elementMap->insert({input, output});

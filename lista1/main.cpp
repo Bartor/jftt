@@ -1,13 +1,17 @@
 #include <iostream>
 #include <memory>
-#include "algorithms/Pattern.h"
+
+#include "algorithms/Alphabet.h"
 #include "algorithms/FiniteAutomatonMatcher.h"
 
 int main() {
-    auto pattern = std::make_unique<Pattern>("abced");
-    auto text = std::make_unique<FiniteAutomatonMatcher>(pattern->match("ab"));
+    auto alphabet = L"abcdeąężźć€ł";
+    auto toMatch = L"ab";
+    auto inText = L"ababababababababbabbcebdebdecabcdebcabdcebcdabc";
 
-    auto result = text->matchPattern("abcedebcebabcebdbceb");
+    auto pattern = std::make_unique<Alphabet>(alphabet);
+    auto text = std::make_unique<FiniteAutomatonMatcher>(pattern->match(toMatch));
+    auto result = text->matchPattern(inText);
 
     for (auto res : *result) {
         std::cout << res << std::endl;

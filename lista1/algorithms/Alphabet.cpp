@@ -4,11 +4,11 @@
 
 #include <memory>
 #include <iostream>
-#include "Pattern.h"
+#include "Alphabet.h"
 #include "FunctionMap.h"
 #include "PatternMatcher.h"
 
-std::shared_ptr<PatternMatcher> Pattern::match(const std::string &pattern) {
+std::shared_ptr<PatternMatcher> Alphabet::match(const std::wstring &pattern) {
     auto map = std::make_shared<FunctionMap>();
     for (auto i = 0; i < pattern.length(); i++) {
         for (auto currentSymbol : this->alphabet) {
@@ -23,7 +23,7 @@ std::shared_ptr<PatternMatcher> Pattern::match(const std::string &pattern) {
     return std::make_shared<PatternMatcher>(map, pattern.length());
 }
 
-inline bool Pattern::ends_with(const std::string &text, const std::string &suffix) {
+inline bool Alphabet::ends_with(const std::wstring &text, const std::wstring &suffix) {
     return text.length() >= suffix.length() &&
            0 == text.compare(text.length() - suffix.length(), suffix.length(), suffix);
 }

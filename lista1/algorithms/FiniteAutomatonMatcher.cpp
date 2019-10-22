@@ -5,7 +5,7 @@
 #include <iostream>
 #include "FiniteAutomatonMatcher.h"
 
-std::shared_ptr<std::vector<int>> FiniteAutomatonMatcher::matchPattern(const std::string &text) {
+std::shared_ptr<std::vector<int>> FiniteAutomatonMatcher::matchPattern(const std::wstring &text) {
     auto q = 0;
     auto ret = std::make_shared<std::vector<int>>();
     for (auto i = 0; i < text.length(); i++) {

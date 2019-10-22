@@ -9,11 +9,11 @@
 #include <map>
 
 class FunctionMap {
-    std::unique_ptr<std::map<int, std::shared_ptr<std::map<char, int>>>> mapHandle;
+    std::unique_ptr<std::map<int, std::shared_ptr<std::map<wchar_t, int>>>> mapHandle;
 
 public:
     FunctionMap();
-    void set(int state, char input, int output);
+    void set(int state, wchar_t input, int output);
     int get(int state, char input);
 };
 
