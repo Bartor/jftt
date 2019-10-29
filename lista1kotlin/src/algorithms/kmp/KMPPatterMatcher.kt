@@ -10,6 +10,6 @@ class KMPPatterMatcher : PatternMatcherInterface {
     }
 
     override fun toString(): String {
-        return "KMP Pattern Matcher@${this.hashCode()}"
+        return "KMP"
     }
 }

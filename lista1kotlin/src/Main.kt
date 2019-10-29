@@ -7,7 +7,7 @@ private data class MatchTest(
     public val patterns: List<String>
 ) {
     override fun toString(): String {
-        return "$text : $patterns"
+        return text
     }
 }
 
@@ -20,12 +20,12 @@ fun main() {
         MatchTest("roωrrρrωrωrωrrωrろωorrρρo", listOf("ろ", "ろω", "ωrωr", "ρo", "rr", "rρrρ"))
     )
 
-    for (matcher in matchers) {
-        println("\n[====$matcher====]")
-        for (test in tests) {
-            println("==$test==")
-            for (pattern in test.patterns) {
-                println("$pattern -> ${matcher.findMatches(test.text, pattern)}")
+    for (test in tests) {
+        println("==== $test =====")
+        for (pattern in test.patterns) {
+            println("find $pattern:")
+            for (matcher in matchers) {
+                println("\t$matcher -> ${matcher.findMatches(test.text, pattern)}")
             }
         }
     }

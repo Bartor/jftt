@@ -10,6 +10,6 @@ class AutomatonPatternMatcher : PatternMatcherInterface {
     }
 
     override fun toString(): String {
-        return "Automaton Pattern Matcher@${this.hashCode()}"
+        return "APM"
     }
 }
