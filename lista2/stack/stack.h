@@ -10,6 +10,6 @@ typedef struct {
 
 Stack* new_stack(int size);
 void push(Stack* stack, int number);
-int pop(Stack* stack);
+int pop(Stack* stack, int* error);
 
 #endif

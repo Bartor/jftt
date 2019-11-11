@@ -1,5 +1,6 @@
 #include "stack.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 Stack* new_stack(int size) {
     Stack* stack = malloc(sizeof(Stack));
@@ -24,7 +25,7 @@ int pop(Stack* stack, int* error) {
         return -1;
     }
 
-    int returnValue = stack->memory[stack->index--];
+    int returnValue = stack->memory[--stack->index];
 
     if (stack->index < stack->size/4) {
         stack->memory = realloc(stack->memory, stack->size/2);

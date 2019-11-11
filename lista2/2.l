@@ -6,18 +6,21 @@
 
 %x INCOMMENT
 
+open \<!--
+close -->
+
 %%
 
-\<!--           BEGIN(INCOMMENT);
-<ISCOMMENT> {
-    \n|.        ;
-    -->         BEGIN(INITIAL);
+{open}          BEGIN(INCOMMENT);
+<INCOMMENT>{
+.|\n            ;
+{close}         BEGIN(INITIAL);
 }
 
 %%
 
 int yywrap() {
-    return 0;
+    return 1;
 }
 
 int main() {

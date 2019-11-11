@@ -5,7 +5,7 @@
     int yylex();
     int yywrap();
 
-    Stack* stack = new_stack(32);
+    Stack* stack;
     int error = 0;
 
     int power(int base, unsigned int exponent) {
@@ -22,7 +22,7 @@
 \+              {
                     push(stack, pop(stack, &error) + pop(stack, &error));
                     if (error) {
-                        printf("Too few arguments");
+                        printf("Too few arguments\n");
                         BEGIN(ISERROR);
                     }
                 }
@@ -30,7 +30,7 @@
 \-              {
                     push(stack, pop(stack, &error) - pop(stack, &error));
                     if (error) {
-                        printf("Too few arguments");
+                        printf("Too few arguments\n");
                         BEGIN(ISERROR);
                     }
                 }
@@ -38,7 +38,7 @@
 \*              {
                     push(stack, pop(stack, &error) * pop(stack, &error));
                     if (error) {
-                        printf("Too few arguments");
+                        printf("Too few arguments\n");
                         BEGIN(ISERROR);
                     }
                 }
@@ -46,15 +46,15 @@
 \/              {
                     int div = pop(stack, &error);
                     if (error) {
-                        printf("Too few arguments");
+                        printf("Too few arguments\n");
                         BEGIN(ISERROR);
                     } else if (div == 0) {
-                        printf("Can't divide by 0");
+                        printf("Can't divide by 0\n");
                         BEGIN(ISERROR);
                     } else {
                         push(stack, pop(stack, &error) / div);
                             if (error) {
-                            printf("Too few arguments");
+                            printf("Too few arguments\n");
                             BEGIN(ISERROR);
                         }
                     }
@@ -63,15 +63,15 @@
 \%              {
                     int div = pop(stack, &error);
                     if (error) {
-                        printf("Too few arguments");
+                        printf("Too few arguments\n");
                         BEGIN(ISERROR);
                     } else if (div == 0) {
-                        printf("Can't divide by 0");
+                        printf("Can't divide by 0\n");
                         BEGIN(ISERROR);
-                    }else {
+                    } else {
                         push(stack, pop(stack, &error) % div);
                             if (error) {
-                            printf("Too few arguments");
+                            printf("Too few arguments\n");
                             BEGIN(ISERROR);
                         }
                     }
@@ -80,15 +80,15 @@
 \^              {
                     int exp = pop(stack, &error);
                     if (error) {
-                        printf("Too few arguments");
+                        printf("Too few arguments\n");
                         BEGIN(ISERROR);
                     } else if (exp < 0) {
-                        printf("Can't rise to negative power");
+                        printf("Can't rise to negative power\n");
                         BEGIN(ISERROR);
-                    }else {
+                    } else {
                         push(stack, power(pop(stack, &error), exp));
                             if (error) {
-                            printf("Too few arguments");
+                            printf("Too few arguments\n");
                             BEGIN(ISERROR);
                         }
                     }
@@ -97,7 +97,7 @@
 \n              {
                     if (stack->index == 1) printf("Result: %d\n", pop(stack, &error));
                     else {
-                        printf("Too much arguments");
+                        printf("Too much arguments\n");
                         while (stack->index) {
                             pop(stack, &error);
                         }
@@ -115,14 +115,15 @@
                     free(stack);
                     stack = new_stack(32);
                     BEGIN(INITIAL);
-                }
+}
 
 %%
 
 int yywrap() {
-    return 0;
+    return 1;
 }
 
 int main() {
+    stack = new_stack(32);
     return yylex();
 }

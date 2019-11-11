@@ -12,16 +12,16 @@
 
 ^[[:blank:]]+   ;
 [[:blank:]]+$   ;
-[[:blank:]]+    {printf(" ");}
+[[:blank:]]+    { printf(" "); }
 
-[a-zA-Z]+       {ECHO; wc++}
-\n              {printf("\n"); lc++;}
+[a-zA-Z]+       { ECHO; wc++; }
+\n              { printf("\n"); lc++; }
 
 %%
 
 int yywrap() {
-    printf("\nWords: %d\nLines: %d", wc, lc);
-    return 0;
+    printf("\nWords: %d\nLines: %d\n", wc, lc);
+    return 1;
 }
 
 int main() {

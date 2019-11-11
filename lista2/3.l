@@ -8,10 +8,10 @@
 
 %x INCOMMENT
 
-docSingleLine \/\/(\/|!).*\n
+docSingleLine \/\/(\/|!).*
 docMultilineOpen ^[[:blank:]]*\/\*(\*|!).*(\n)?
 
-singleLine \/\/.*\n
+singleLine \/\/.*
 multilineOpen ^[[:blank:]]*\/\*.*(\n)?
 
 multilineClose (!|\*)?\*\/(\n)?
@@ -23,15 +23,15 @@ multilineClose (!|\*)?\*\/(\n)?
 {docMultilineOpen}      { if (docs) ECHO; else BEGIN(INCOMMENT); }
 {multilineOpen}         { BEGIN(INCOMMENT); }
 
-<INCOMMENT> {
-    \n|.    ;
-    {multilineClose}    { BEGIN(INITAIL); }
+<INCOMMENT>{
+.|\n                    ;
+{multilineClose}        { BEGIN(INITIAL); }
 }
 
 %%
 
 int yywrap() {
-    return 0;
+    return 1;
 }
 
 int main(int argc, char **argv) {
