@@ -17,6 +17,7 @@ void push(Stack* stack, int number) {
         stack->memory = realloc(stack->memory, stack->size*2);
         stack->size *= 2;
     }
+
 }
 
 int pop(Stack* stack, int* error) {
@@ -31,6 +32,6 @@ int pop(Stack* stack, int* error) {
         stack->memory = realloc(stack->memory, stack->size/2);
         stack->size /= 2;
     }
-    
+
     return returnValue;
 }

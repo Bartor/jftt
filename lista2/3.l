@@ -6,24 +6,30 @@
     int docs = 0;
 %}
 
-%x INCOMMENT
+%x IN_COMMENT
+%x IN_DOCS
 
 docSingleLine \/\/(\/|!).*
-docMultilineOpen ^[[:blank:]]*\/\*(\*|!).*(\n)?
+docMultilineOpen \/\*(\*|!)
 
 singleLine \/\/.*
-multilineOpen ^[[:blank:]]*\/\*.*(\n)?
+multilineOpen \/\*
 
-multilineClose (!|\*)?\*\/(\n)?
+multilineClose \*\/
 
 %%
 
 {docSingleLine}         { if (docs) ECHO; }
 {singleLine}            ;
-{docMultilineOpen}      { if (docs) ECHO; else BEGIN(INCOMMENT); }
-{multilineOpen}         { BEGIN(INCOMMENT); }
+{docMultilineOpen}      { if (docs) ECHO; BEGIN(IN_DOCS); }
+{multilineOpen}         { BEGIN(IN_COMMENT); }
 
-<INCOMMENT>{
+<IN_DOCS>{
+.|\n                    { if(docs) ECHO; }
+{multilineClose}        { if(docs) ECHO; BEGIN(INITIAL); }
+}
+
+<IN_COMMENT>{
 .|\n                    ;
 {multilineClose}        { BEGIN(INITIAL); }
 }

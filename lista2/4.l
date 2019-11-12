@@ -28,7 +28,9 @@
                 }
 
 \-              {
-                    push(stack, pop(stack, &error) - pop(stack, &error));
+                    int m1 = pop(stack, &error);
+                    int m2 = pop(stack, &error);
+                    push(stack, m2 - m1);
                     if (error) {
                         printf("Too few arguments\n");
                         BEGIN(ISERROR);
@@ -44,15 +46,16 @@
                 }
 
 \/              {
-                    int div = pop(stack, &error);
+                    int divisor = pop(stack, &error);
+                    int divided = pop(stack, &error);
                     if (error) {
                         printf("Too few arguments\n");
                         BEGIN(ISERROR);
-                    } else if (div == 0) {
+                    } else if (divisor == 0) {
                         printf("Can't divide by 0\n");
                         BEGIN(ISERROR);
                     } else {
-                        push(stack, pop(stack, &error) / div);
+                        push(stack, divided / divisor);
                             if (error) {
                             printf("Too few arguments\n");
                             BEGIN(ISERROR);
@@ -61,15 +64,16 @@
                 }
 
 \%              {
-                    int div = pop(stack, &error);
+                    int divisor = pop(stack, &error);
+                    int divided = pop(stack, &error);
                     if (error) {
                         printf("Too few arguments\n");
                         BEGIN(ISERROR);
-                    } else if (div == 0) {
+                    } else if (divisor == 0) {
                         printf("Can't divide by 0\n");
                         BEGIN(ISERROR);
                     } else {
-                        push(stack, pop(stack, &error) % div);
+                        push(stack, divided % divisor);
                             if (error) {
                             printf("Too few arguments\n");
                             BEGIN(ISERROR);

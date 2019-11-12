@@ -1,10 +1,11 @@
-<xD>
-	<haha prop="1223">
-		<looo>
-			co tam?
-		</looo>
-		<!--<buu>-->
-		<!--	:C-->
-		<!--</buu>-->
-	</haha>
-</xD>
+<?xml version="1.1"?>
+<!DOCTYPE none>
+<root>
+  <!--foo>commented out <a>elements</a></foo-->
+  <foo var="test>  <!-- this is not a comment --> <a" href="x" />
+  <![CDATA[
+    In CDATA <!-- everything is data!!! -->
+  ]]>
+  <!-- valid comment -->
+  <!-- invalid -- comment -->
+</root>

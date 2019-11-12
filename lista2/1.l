@@ -10,8 +10,8 @@
 
 %%
 
-^[[:blank:]]+   ;
-[[:blank:]]+$   ;
+^[[:blank:]]+(\n)?   ;
+[[:blank:]]+(\n)?$   ;
 [[:blank:]]+    { printf(" "); }
 
 [a-zA-Z]+       { ECHO; wc++; }
