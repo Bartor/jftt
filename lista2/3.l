@@ -8,21 +8,33 @@
 
 %x IN_COMMENT
 %x IN_DOCS
+%x IN_STRING
 
-docSingleLine \/\/(\/|!).*
+escapedNewline \\\n
+
+
+docSingleLine \/{escapedNewline}*\/(\/|!)({escapedNewline}|.)*
 docMultilineOpen \/\*(\*|!)
 
-singleLine \/\/.*
-multilineOpen \/\*
+singleLine \/{escapedNewline}*\/({escapedNewline}|.)*
+multilineOpen {escapedNewline}*\/{escapedNewline}*\*
 
-multilineClose \*\/
+multilineClose {escapedNewline}*\*{escapedNewline}*\/
+include \#include[[:blank:]].*\n
 
 %%
 
+{include}               ECHO;
+\"                      { ECHO; BEGIN(IN_STRING); }
 {docSingleLine}         { if (docs) ECHO; }
 {singleLine}            ;
 {docMultilineOpen}      { if (docs) ECHO; BEGIN(IN_DOCS); }
 {multilineOpen}         { BEGIN(IN_COMMENT); }
+
+<IN_STRING>{
+{escapedNewline}*\"     { ECHO; BEGIN(INITIAL); }
+.                       ECHO;
+}
 
 <IN_DOCS>{
 .|\n                    { if(docs) ECHO; }
