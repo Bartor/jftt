@@ -10,7 +10,7 @@ escapedNewline \\\n
 ^#(.|{escapedNewline})*\n   ;
 {escapedNewline}            ;
 [[:blank:]]+                ;
-[0-9]+                      { yyval = atoi(yytext); return VALUE; }
+[0-9]+                      { yylval = atoi(yytext); return VALUE; }
 \+                          { return PLUS; }
 -                           { return MINUS; }
 \*                          { return MULT; }
@@ -19,6 +19,6 @@ escapedNewline \\\n
 \^                          { return POW; }
 \(                          { return BRACKET_OPEN; }
 \)                          { return BRACKET_CLOSE; }
-\n                          { return EOL; }
+\n                          { return END; }
 .                           { return ERR; }
 %%
